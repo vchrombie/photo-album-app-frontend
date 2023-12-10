@@ -98,7 +98,7 @@ function searchPhotos() {
     uploadMsgDiv.value = "";
 
     var params = {
-        'message' : searchQuery.value
+        'q' : searchQuery.value,
     };
 
     console.log(params)
