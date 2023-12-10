@@ -107,7 +107,7 @@ function searchPhotos() {
     .then(function(result) {
         console.log("Result : ", result);
 
-        paths = result["data"].split(",");
+        paths = JSON.parse(result["data"]['body']);
         console.log(paths)
         console.log("print paths : ", paths);
 
@@ -121,23 +121,23 @@ function searchPhotos() {
 
         else if (paths.length > 0 && paths[0]!=" "){
             for (i = 0; i < paths.length; i++) {
-            //img = paths[i].split('/');
-            //imgName = img[img.length - 1];
-            console.log(paths[i])
+                console.log(paths[i])
+                
+                var url = "https://vt2182-a3-b2.s3.amazonaws.com/" + paths[i]['objectKey'];
 
-            if (i%3 === 0){
-                if (i === 0){
-                    photosDiv.innerHTML += '<div class="row">';
+                if (i%3 === 0){
+                    if (i === 0){
+                        photosDiv.innerHTML += '<div class="row">';
+                    }
+                    else{
+                        photosDiv.innerHTML += '</div><div class="row">';
+                    }
                 }
-                else{
-                    photosDiv.innerHTML += '</div><div class="row">';
-                }
-            }
-            photosDiv.innerHTML += '<div class="column"><center><figure><img src="' + paths[i] + '" width="300" height="200"></figure></center></div>';
+                photosDiv.innerHTML += '<div class="column"><center><figure><img src="' + url + '" width="300" height="200"></figure></center></div>';
 
-            if (i === paths.length - 1){
-                photosDiv.innerHTML += '</div>'
-            }
+                if (i === paths.length - 1){
+                    photosDiv.innerHTML += '</div>'
+                }
 
             }
         }
